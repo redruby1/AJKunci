@@ -1,5 +1,5 @@
 # AJKunci
-AJKunci merupakan miniatur dari sebuah pintu yang menerapkan IoT (Internet of Things). Miniatur ini memanfaatkan bluetooth pada smartphone untuk mendeteksi device, dan SQL database untuk menyimpan trusted device yang bisa membuka kunci pintu
+AJKunci merupakan miniatur dari sebuah pintu yang menerapkan IoT (Internet of Things). Miniatur ini memanfaatkan bluetooth pada raspberry pi untuk mendeteksi device, dan SQL database untuk menyimpan trusted device yang bisa membuka kunci pintu
 
 ## Requirements
 1. Raspberry pi
@@ -11,6 +11,24 @@ AJKunci merupakan miniatur dari sebuah pintu yang menerapkan IoT (Internet of Th
 ## Configuration
 1. Install Raspbian pada sd card untuk Raspberry pi
 2. Install mySQL untuk database
+3. Konfigurasi awal raspberry pi
+    ```
+    import bluetooth
+    import mysql.connector
+    import RPi.GPIO as GPIO
+    from gpiozero import Servo
+    from time import sleep
+
+    servo = 11
+
+    GPIO.setmode(GPIO.BOARD)
+
+    GPIO.setup(servo,GPIO.OUT)
+
+    p=GPIO.PWM(servo,50)# 50hz frequency
+    p.start(2.5)# starting duty cycle ( it set the servo to 2.5 degree )
+    ```
+    Apabila fungsi import belum berfungsi, bisa menginstall packagenya terlebih dahulu
 3. Buat script menggunakan python untuk mengkoneksikan raspberry pi dan database
    ```
    db = mysql.connector.connect( #connect to database for get the mac address
